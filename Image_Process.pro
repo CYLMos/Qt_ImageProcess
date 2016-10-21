@@ -18,3 +18,18 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h
 
 FORMS    += mainwindow.ui
+
+INCLUDEPATH += D:\build\include\opencv\
+               D:\build\include\opencv2\
+               D:\build\include
+
+LIBS+=D:\build\lib\libopencv_calib3d310.dll.a\
+D:\build\lib\libopencv_core310.dll.a\
+D:\build\lib\libopencv_features2d310.dll.a\
+D:\build\lib\libopencv_flann310.dll.a\
+D:\build\lib\libopencv_highgui310.dll.a\
+D:\build\lib\libopencv_imgproc310.dll.a\
+D:\build\lib\libopencv_imgcodecs310.dll.a\
+D:\build\lib\libopencv_ml310.dll.a\
+D:\build\lib\libopencv_objdetect310.dll.a\
+D:\build\lib\libopencv_video310.dll.a
