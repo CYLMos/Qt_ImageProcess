@@ -3,6 +3,13 @@
 
 #include <QMainWindow>
 
+#include "opencv2/core/core.hpp"
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
+#include "opencv_modules.hpp"
+#include "cv.h"
+#include "highgui.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -16,10 +23,12 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pb_Test_clicked();
+    void on_pb_ChoseImage_clicked();
 
 private:
     Ui::MainWindow *ui;
+
+    cv::Mat adjustSize(cv::Mat &mat);
 };
 
 #endif // MAINWINDOW_H
