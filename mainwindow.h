@@ -25,10 +25,14 @@ public:
 private slots:
     void on_pb_ChoseImage_clicked();
 
+    void on_slider_ReSize_valueChanged(int value);
+
 private:
     Ui::MainWindow *ui;
+    cv::Mat mat_Image;
 
-    cv::Mat adjustSize(cv::Mat &mat);
+    cv::Mat adjustSize(cv::Mat mat);
+    cv::Mat adjustSize(cv::Mat mat, double value);
 };
 
 #endif // MAINWINDOW_H
