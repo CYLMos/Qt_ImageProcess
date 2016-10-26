@@ -7,6 +7,8 @@
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv_modules.hpp"
+#include "opencv2/objdetect/objdetect_c.h"
+#include "opencv2/objdetect.hpp"
 #include "cv.h"
 #include "highgui.h"
 
@@ -33,6 +35,7 @@ private:
 
     cv::Mat adjustSize(cv::Mat mat);
     cv::Mat adjustSize(cv::Mat mat, double value);
+    cv::Mat faceDetected(cv:: Mat mat);
 };
 
 #endif // MAINWINDOW_H

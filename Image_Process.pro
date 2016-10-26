@@ -33,3 +33,6 @@ D:\build\lib\libopencv_imgcodecs310.dll.a\
 D:\build\lib\libopencv_ml310.dll.a\
 D:\build\lib\libopencv_objdetect310.dll.a\
 D:\build\lib\libopencv_video310.dll.a
+
+DISTFILES += \
+    haarcascade_frontalface_alt.xml

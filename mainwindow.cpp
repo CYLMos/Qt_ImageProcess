@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+    this->mat_Image.release();
 }
 
 void MainWindow::on_pb_ChoseImage_clicked()
@@ -22,6 +23,7 @@ void MainWindow::on_pb_ChoseImage_clicked()
     this->mat_Image = cv::imread(fileName.toStdString(),CV_LOAD_IMAGE_UNCHANGED);
     cv::cvtColor(this->mat_Image,this->mat_Image,CV_BGR2RGB);
     this->mat_Image = adjustSize(this->mat_Image);  //resize
+    this->mat_Image = faceDetected(this->mat_Image);
     QImage qImage((const uchar *)this->mat_Image.data,this->mat_Image.cols,this->mat_Image.rows,this->mat_Image.step,QImage::Format_RGB888);
     ui->lb_Image->setPixmap(QPixmap::fromImage(qImage));
     QSize size;
@@ -71,5 +73,27 @@ cv::Mat MainWindow::adjustSize(cv::Mat mat, double value){
     cvResize(srcImage,dstImage,CV_INTER_LINEAR);
     srcImage = dstImage;
     mat = cv::cvarrToMat(srcImage);
+    return mat;
+}
+
+cv::Mat MainWindow::faceDetected(cv::Mat mat){
+    QString cascadeName = "../Image_Process/haarcascade_frontalface_alt.xml";
+    cv::CascadeClassifier  classifier;
+    classifier.load(cascadeName.toStdString());
+    std::vector<cv::Rect> rects;
+    classifier.detectMultiScale(mat,rects,1.1,3,
+                                CV_HAAR_DO_CANNY_PRUNING
+                                |CV_HAAR_SCALE_IMAGE,
+                                cv::Size(0, 0),
+                                cv::Size(300,300));
+    /*for(int i=0;i<rects.size();i++){
+        cv::Rect r = rects[i];
+        cv::Point point1(r.x+r.width,r.y+r.height);
+        cv::Point point2(r.x,r.y);
+        cv::rectangle(mat,point1,point2,cv::Scalar(255,0,0),1,cv::LINE_8,0);
+    }*/
+    cv::Rect r = rects[0];
+    mat = mat(r);
+
     return mat;
 }
