@@ -20,16 +20,20 @@ MainWindow::~MainWindow()
 void MainWindow::on_pb_ChoseImage_clicked()
 {
     QString fileName = QFileDialog::getOpenFileName(this,"open file","","image files(*.jpg *.png *.bmp *.jpeg)");
-    this->mat_Image = cv::imread(fileName.toStdString(),CV_LOAD_IMAGE_UNCHANGED);
-    cv::cvtColor(this->mat_Image,this->mat_Image,CV_BGR2RGB);
-    this->mat_Image = adjustSize(this->mat_Image);  //resize
-    this->mat_Image = faceDetected(this->mat_Image);
-    QImage qImage((const uchar *)this->mat_Image.data,this->mat_Image.cols,this->mat_Image.rows,this->mat_Image.step,QImage::Format_RGB888);
-    ui->lb_Image->setPixmap(QPixmap::fromImage(qImage));
-    QSize size;
-    size.setHeight(qImage.height());
-    size.setWidth(qImage.width());
-    ui->lb_Image->setFixedSize(size);
+    if(!fileName.isEmpty()){
+        this->mat_Image = cv::imread(fileName.toStdString(),CV_LOAD_IMAGE_UNCHANGED);
+        cv::cvtColor(this->mat_Image,this->mat_Image,CV_BGR2RGB);
+
+        this->mat_Image = adjustSize(this->mat_Image);  //resize
+        this->mat_Image = faceDetected(this->mat_Image);  //recognize face
+
+        QImage qImage((const uchar *)this->mat_Image.data,this->mat_Image.cols,this->mat_Image.rows,this->mat_Image.step,QImage::Format_RGB888);
+        ui->lb_Image->setPixmap(QPixmap::fromImage(qImage));
+        QSize size;
+        size.setHeight(qImage.height());
+        size.setWidth(qImage.width());
+        ui->lb_Image->setFixedSize(size);
+    }
 }
 
 void MainWindow::on_slider_ReSize_valueChanged(int value)
@@ -92,7 +96,15 @@ cv::Mat MainWindow::faceDetected(cv::Mat mat){
         cv::Point point2(r.x,r.y);
         cv::rectangle(mat,point1,point2,cv::Scalar(255,0,0),1,cv::LINE_8,0);
     }*/
+    //just catch one face
     cv::Rect r = rects[0];
+
+    //adjust rect size
+    double scale = 1.0;
+    int x = (int)((double)r.width)*(1.0+scale),y = (int)((double)r.height)*(1.0+scale);
+    r.x = r.x - (x - r.width)/2;r.y = r.y - (y - r.height)/2;
+    r.width = x;r.height = y;
+
     mat = mat(r);
 
     return mat;
