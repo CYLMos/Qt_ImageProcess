@@ -3,6 +3,13 @@
 
 #include <QFileDialog>
 #include <QScrollArea>
+#include <QInputDialog>
+#include <QMessageBox>
+#include <QLineEdit>
+#include <QTextEdit>
+#include <QDialog>
+#include <Encoder.cpp>
+#include <Decoder.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -19,7 +26,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pb_ChoseImage_clicked()
 {
-    QString fileName = QFileDialog::getOpenFileName(this,"open file","","image files(*.jpg *.png *.bmp *.jpeg)");
+    QString fileName = QFileDialog::getOpenFileName(this,"open file","","image files(*.jpg *.png *.bmp *.jpeg *.raw)");
     if(!fileName.isEmpty()){
         this->mat_Image = cv::imread(fileName.toStdString(),CV_LOAD_IMAGE_UNCHANGED);
         cv::cvtColor(this->mat_Image,this->mat_Image,CV_BGR2RGB);
@@ -108,4 +115,56 @@ cv::Mat MainWindow::faceDetected(cv::Mat mat){
     mat = mat(r);
 
     return mat;
+}
+
+void MainWindow::on_pb_ChoseDecodeImage_clicked()
+{
+    QString fileName = QFileDialog::getOpenFileName(this,"open file","","image files(*.jpg *.png *.bmp *.jpeg)");
+    if(!fileName.isEmpty()){
+        //if(this->mat_Image.data != NULL){this->mat_Image = NULL;}
+        this->mat_Image = cv::imread(fileName.toStdString(),CV_LOAD_IMAGE_UNCHANGED);
+        cv::cvtColor(this->mat_Image,this->mat_Image,CV_BGR2RGB);
+
+        //this->mat_Image = adjustSize(this->mat_Image);  //resize
+        Decoder *decoder = new Decoder;
+
+        //int userInput1 = ui->lineEdit->text().toInt();
+        //int userInput2 = ui->lineEdit_2->text().toInt();
+        bool isOK1,isOK2;
+        int userInput1 = QInputDialog::getInt(this,"Input the peak.","Input your peak.",0,0,255,1,&isOK1);
+        int userInput2 = QInputDialog::getInt(this,"Input the zero.","Input your zero.",0,0,255,1,&isOK2);
+
+        int result = 0;
+
+        ui->label1->setText(QString::number(userInput1));
+        ui->labe2->setText(QString::number(userInput2));
+
+        result = decoder->decode_and_recover(this->mat_Image,userInput1,userInput2);
+        ui->label3->setText(QString::number(result));
+
+        QImage qImage((const uchar *)this->mat_Image.data,this->mat_Image.cols,this->mat_Image.rows,this->mat_Image.step,QImage::Format_RGB888);
+        ui->lb_Image->setPixmap(QPixmap::fromImage(qImage));
+        QSize size;
+        size.setHeight(qImage.height());
+        size.setWidth(qImage.width());
+        ui->lb_Image->setFixedSize(size);
+    }
+}
+
+void MainWindow::on_pb_Save_clicked()
+{
+    if(this->mat_Image.data != NULL){
+        int value = ui->slider_ReSize->value();
+        this->mat_Image = adjustSize(this->mat_Image,(double)value);
+
+        Encoder *encoder = new Encoder;
+        int peak,zero,count;
+        encoder->encode(this->mat_Image,peak,zero,count,value);
+        QMessageBox messagebox;
+        messagebox.question(this,"Your peak and zero.","Your peak = " + QString::number(peak) + ", zero = " + QString::number(zero) + ", value = " + QString::number(value),QMessageBox::Ok);
+        messagebox.show();
+
+        cv::cvtColor(this->mat_Image,this->mat_Image,CV_RGB2BGR);
+        cv::imwrite("Test.bmp",this->mat_Image);
+    }
 }

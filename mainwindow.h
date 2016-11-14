@@ -29,6 +29,10 @@ private slots:
 
     void on_slider_ReSize_valueChanged(int value);
 
+    void on_pb_ChoseDecodeImage_clicked();
+
+    void on_pb_Save_clicked();
+
 private:
     Ui::MainWindow *ui;
     cv::Mat mat_Image;
@@ -36,6 +40,16 @@ private:
     cv::Mat adjustSize(cv::Mat mat);
     cv::Mat adjustSize(cv::Mat mat, double value);
     cv::Mat faceDetected(cv:: Mat mat);
+    /*int decode(cv::Mat image,int peak,int zero);
+    int power(int a,int n){
+        int to=1;
+        for(int i=0;i<n;i++)
+        {
+            to*=a;
+        }
+        return to;
+
+    }*/
 };
 
 #endif // MAINWINDOW_H

@@ -13,9 +13,13 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    Decoder.cpp \
+    Encoder.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    Decoder.h \
+    Encoder.h
 
 FORMS    += mainwindow.ui
 

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Image Process</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="enabled">
@@ -21,7 +21,27 @@
     <set>Qt::ImhHiddenText</set>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0" colspan="2">
+    <item row="1" column="6">
+     <widget class="QSlider" name="slider_ReSize">
+      <property name="minimum">
+       <number>-9</number>
+      </property>
+      <property name="maximum">
+       <number>10</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="pb_ChoseImage">
+      <property name="text">
+       <string>Chose a Image</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="7">
      <widget class="QScrollArea" name="scrollArea">
       <property name="verticalScrollBarPolicy">
        <enum>Qt::ScrollBarAlwaysOn</enum>
@@ -68,23 +88,38 @@
       </widget>
      </widget>
     </item>
-    <item row="1" column="0">
-     <widget class="QPushButton" name="pb_ChoseImage">
+    <item row="1" column="1">
+     <widget class="QPushButton" name="pb_ChoseDecodeImage">
       <property name="text">
-       <string>Chose a Image</string>
+       <string>Chose an encode image</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="1">
-     <widget class="QSlider" name="slider_ReSize">
-      <property name="minimum">
-       <number>-9</number>
+    <item row="1" column="2">
+     <widget class="QLabel" name="label1">
+      <property name="text">
+       <string>TextLabel</string>
       </property>
-      <property name="maximum">
-       <number>10</number>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="QLabel" name="labe2">
+      <property name="text">
+       <string>TextLabel</string>
       </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
+     </widget>
+    </item>
+    <item row="1" column="4">
+     <widget class="QLabel" name="label3">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="5">
+     <widget class="QPushButton" name="pb_Save">
+      <property name="text">
+       <string>Save</string>
       </property>
      </widget>
     </item>
