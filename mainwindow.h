@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMessageBox>
+#include "Thread1.h"
+#include <Thread2.h>
 
 #include "opencv2/core/core.hpp"
 #include "opencv2/highgui/highgui.hpp"
@@ -24,6 +27,10 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+public slots:
+    void startProcess(int peak, int zero);
+    void startProcess(int result);
+
 private slots:
     void on_pb_ChoseImage_clicked();
 
@@ -36,20 +43,13 @@ private slots:
 private:
     Ui::MainWindow *ui;
     cv::Mat mat_Image;
+    //QMessageBox *messagebox;
+    Thread1 *thread;
+    Thread2 *thread2;
 
     cv::Mat adjustSize(cv::Mat mat);
     cv::Mat adjustSize(cv::Mat mat, double value);
     cv::Mat faceDetected(cv:: Mat mat);
-    /*int decode(cv::Mat image,int peak,int zero);
-    int power(int a,int n){
-        int to=1;
-        for(int i=0;i<n;i++)
-        {
-            to*=a;
-        }
-        return to;
-
-    }*/
 };
 
 #endif // MAINWINDOW_H

@@ -15,11 +15,15 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     Decoder.cpp \
-    Encoder.cpp
+    Encoder.cpp \
+    Thread2.cpp \
+    Thread1.cpp
 
 HEADERS  += mainwindow.h \
     Decoder.h \
-    Encoder.h
+    Encoder.h \
+    Thread2.h \
+    Thread1.h
 
 FORMS    += mainwindow.ui
 

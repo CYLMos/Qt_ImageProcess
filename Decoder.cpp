@@ -8,8 +8,8 @@ Decoder::Decoder()
 int Decoder::decode_and_recover(cv::Mat &image,int peak,int zero){
     int result = 0;
     result = this->decode(image,peak,zero);
-    this->recover(image,peak,zero);
-    this->find_peak(image,peak,zero);
+    //this->recover(image,peak,zero);
+    //this->find_peak(image,peak,zero);
 
     return result;
 }

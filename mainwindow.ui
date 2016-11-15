@@ -21,7 +21,7 @@
     <set>Qt::ImhHiddenText</set>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="6">
+    <item row="1" column="4">
      <widget class="QSlider" name="slider_ReSize">
       <property name="minimum">
        <number>-9</number>
@@ -41,7 +41,7 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="0" colspan="7">
+    <item row="0" column="0" colspan="5">
      <widget class="QScrollArea" name="scrollArea">
       <property name="verticalScrollBarPolicy">
        <enum>Qt::ScrollBarAlwaysOn</enum>
@@ -103,20 +103,6 @@
      </widget>
     </item>
     <item row="1" column="3">
-     <widget class="QLabel" name="labe2">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="4">
-     <widget class="QLabel" name="label3">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="5">
      <widget class="QPushButton" name="pb_Save">
       <property name="text">
        <string>Save</string>
