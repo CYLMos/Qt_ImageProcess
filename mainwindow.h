@@ -28,7 +28,7 @@ public:
     ~MainWindow();
 
 public slots:
-    void startProcess(int peak, int zero);
+    void startProcess(int peak, int zer);
     void startProcess(int result);
 
 private slots:

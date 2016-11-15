@@ -134,12 +134,11 @@ void MainWindow::on_pb_ChoseDecodeImage_clicked()
 void MainWindow::on_pb_Save_clicked()
 {
     if(this->mat_Image.data != NULL){
-        int value = ui->slider_ReSize->value() + 10;
-        this->mat_Image = adjustSize(this->mat_Image,(double)value);
+        int value = ui->slider_ReSize->value()*10 + 100;
+        this->mat_Image = adjustSize(this->mat_Image,ui->slider_ReSize->value());
 
         this->thread = new Thread1(this->mat_Image,value,this);
         connect(this->thread,SIGNAL(startProcess(int,int)),this,SLOT(startProcess(int,int)));
-        //thread->setPriority(QThread::HighestPriority);
         this->thread->start(QThread::HighestPriority);
     }
 }
@@ -151,7 +150,9 @@ void MainWindow::startProcess(int peak, int zero){
     else{
         ui->label1->setText("Done!");
         QMessageBox messag;
-        messag.question(this,"peak and zero.","peak is " + QString::number(peak) + ", zero is " + QString::number(zero) + ".");
+        messag.question(this,"peak and zero.","peak is " + QString::number(peak) +
+                        ", zero is " + QString::number(zero) +
+                        ", value is " + QString::number(ui->slider_ReSize->value()*10 + 100));
         messag.show();
     }
 }

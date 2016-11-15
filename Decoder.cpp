@@ -81,14 +81,14 @@ int Decoder::decode(cv::Mat &image,int peak,int zero){
     bool sav=false;
     std::list<int> deq;
     //std::list<int> test;
-    int n = 0;
+    int n = peak < zero ? 1 : -1;
     for(int i=0;i<image.rows;i++)
     {
         for(int j=0;j<image.cols;j++)
         {
             //test.push_back(image.at<uchar>(i,j));
             //if((int)image.at<uchar>(i,j) == 153){n++;}
-            if(image.at<cv::Vec3b>(i,j)[0] == (peak+1))
+            if(image.at<cv::Vec3b>(i,j)[0] == (peak+n))
             {
                 //cout<<"p:"<<peak+1<<"  1"<<endl;
                 //cout<<"k="<<i<<" j="<<j<<endl;
@@ -104,6 +104,7 @@ int Decoder::decode(cv::Mat &image,int peak,int zero){
         }
 
     }
+
     int deq_size = deq.size();
     int total=0;
     for(int i=0;i<deq_size;i++)
